@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Common.Logging;
 using Application.Common.Utils;
@@ -9,7 +10,6 @@ using Application.RecipeCost.Dto;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic.CompilerServices;
 using ProductType = Domain.Enums.ProductType;
 
 namespace Application.RecipeCost
@@ -29,29 +29,20 @@ namespace Application.RecipeCost
             _context = context;
             _logger = logger;
 
-            _saleTaxPercentage = parameterService.GetParameter_Decimal(Domain.Enums.Parameters.SaleTax) / 100;
-            _wellnessDiscountPercentage = parameterService.GetParameter_Decimal(Domain.Enums.Parameters.WellnessDiscount) / 100;
+            _saleTaxPercentage = parameterService.Get_Decimal(Domain.Enums.Parameters.SaleTax) / 100;
+            _wellnessDiscountPercentage = parameterService.Get_Decimal(Domain.Enums.Parameters.WellnessDiscount) / 100;
         }
 
-        public List<Recipe> Get()
+        public async Task<List<RecipeCostDto>> Get()
         {
             try
             {
-                return _context.Recipes.ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ExceptionHelper.GetCurrentMethod());
-            }
+                var recipes = await _context
+                    .Recipes
+                    .Include(x => x.RecipeProducts).ThenInclude(x => x.Product)
+                    .ToListAsync();
 
-            return new List<Recipe>();
-        }
-
-        public Recipe Get(int id)
-        {
-            try
-            {
-                return _context.Recipes.FirstOrDefault(x => x.RecipeId == id);
+                return recipes.Select(GetCost).ToList();
             }
             catch (Exception ex)
             {
@@ -61,23 +52,24 @@ namespace Application.RecipeCost
             return null;
         }
 
-        public List<RecipeCostDto> GetRecipesCost()
+        public async Task<RecipeCostDto> Get(int recipeId)
         {
             try
             {
-                var recipes = _context
+                var recipe = await _context
                     .Recipes
-                    .Include(x => x.RecipeProducts).ThenInclude(x => x.Product)
-                    .ToList();
+                    .Include(x => x.RecipeProducts).ThenInclude(y => y.Product)
+                    .FirstOrDefaultAsync(x => x.RecipeId == recipeId);
 
-                return recipes.Select(GetCost).ToList();
+                if (recipe != null)
+                    return GetCost(recipe);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ExceptionHelper.GetCurrentMethod());
             }
 
-            return new List<RecipeCostDto>();
+            return null;
         }
 
         public RecipeCostDto GetCost(Recipe recipe)
@@ -88,20 +80,20 @@ namespace Application.RecipeCost
 
             foreach (var product in recipe.RecipeProducts)
             {
-                var productPrice = product.Product.Price * product.Quantity;
+                var productPrice = GetProductPrice(product.Product.Price, product.Quantity);
                 total += productPrice;
 
                 switch ((ProductType)product.Product.ProductTypeId)
                 {
                     case ProductType.Meat:
                     case ProductType.Pantry:
-                        
-                        saleTax += productPrice * _saleTaxPercentage;
+
+                        saleTax += GetProductTax(productPrice);
                         break;
                 }
 
                 if (product.Product.IsOrganic)
-                    wellnessDiscount += productPrice * _wellnessDiscountPercentage;
+                    wellnessDiscount += GetProductWellnessDiscount(productPrice);
             }
 
             wellnessDiscount = Round.Amount(wellnessDiscount, 0.01M, Round.Type.Up);
@@ -115,5 +107,23 @@ namespace Application.RecipeCost
                 Total = Math.Round(total + saleTax - wellnessDiscount, 2, MidpointRounding.AwayFromZero)
             };
         }
+
+        public decimal GetProductPrice(decimal price, decimal quantity)
+        {
+            return price * quantity;
+        }
+
+        public decimal GetProductTax(decimal price)
+        {
+            return price * _saleTaxPercentage;
+        }
+
+        public decimal GetProductWellnessDiscount(decimal price)
+        {
+            return price * _wellnessDiscountPercentage;
+        }
+
+        public decimal GetSaleTaxPercentage() => _saleTaxPercentage;
+        public decimal GetWellnessDiscountPercentage() => _wellnessDiscountPercentage;
     }
 }

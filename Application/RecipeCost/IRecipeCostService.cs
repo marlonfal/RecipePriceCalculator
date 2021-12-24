@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Application.RecipeCost.Dto;
 using Domain.Entities;
 
@@ -6,8 +7,7 @@ namespace Application.RecipeCost
 {
     public interface IRecipeCostService
     {
-        List<RecipeCostDto> GetRecipesCost();
-        List<Recipe> Get();
-        Recipe Get(int id);
+        Task<List<RecipeCostDto>> Get();
+        Task<RecipeCostDto> Get(int recipeId);
     }
 }

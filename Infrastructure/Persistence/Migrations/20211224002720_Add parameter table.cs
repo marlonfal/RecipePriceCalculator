@@ -28,7 +28,7 @@ namespace Infrastructure.Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "Parameters",
                 columns: new[] { "ParameterId", "Key", "Value" },
-                values: new object[] { 2, "WellnessDiscount", "8.6" });
+                values: new object[] { 2, "WellnessDiscount", "5" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

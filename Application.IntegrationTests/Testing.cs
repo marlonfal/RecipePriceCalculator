@@ -67,6 +67,13 @@ public class Testing
         EnsureDatabase();
     }
 
+    public static ApplicationDbContext GetApplicationDbContext()
+    {
+        var scope = _scopeFactory.CreateScope();
+
+        return scope.ServiceProvider.GetService<ApplicationDbContext>();
+    }
+
     private static void EnsureDatabase()
     {
         using var scope = _scopeFactory.CreateScope();

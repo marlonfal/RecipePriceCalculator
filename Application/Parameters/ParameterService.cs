@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using Application.Common.Interfaces;
 using Application.Common.Logging;
+using Domain.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Parameters
@@ -21,11 +20,25 @@ namespace Application.Parameters
             _logger = logger;
         }
 
-        public decimal GetParameter_Decimal(Domain.Enums.Parameters parameter)
+        public Parameter Get(Domain.Enums.Parameters parameter)
         {
             try
             {
-                var p = _context.Parameters.FirstOrDefault(x => x.Key == parameter.ToString());
+                return _context.Parameters.FirstOrDefault(x => x.Key == parameter.ToString());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ExceptionHelper.GetCurrentMethod());
+            }
+
+            return null;
+        }
+
+        public decimal Get_Decimal(Domain.Enums.Parameters parameter)
+        {
+            try
+            {
+                var p = Get(parameter);
                 if (p != null)
                     return Convert.ToDecimal(p.Value, new CultureInfo("en-US"));
             }

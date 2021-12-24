@@ -18,7 +18,7 @@ namespace Infrastructure
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseInMemoryDatabase("RecipesDb"));
+                    options.UseInMemoryDatabase("RecipesDbInMemory"));
             }
             else
             {

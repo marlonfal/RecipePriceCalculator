@@ -11,8 +11,6 @@ namespace Application.Common.Interfaces
         DbSet<Recipe> Recipes { get; set; }
         DbSet<RecipeProduct> RecipeProducts { get; set; }
         DbSet<ProductType> ProductTypes { get; set; }
-        DbSet<TodoList> TodoLists { get; set; }
-        DbSet<TodoItem> TodoItems { get; set; }
         DbSet<Parameter> Parameters { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

@@ -30,10 +30,7 @@ namespace Infrastructure.Persistence
             _domainEventService = domainEventService;
             _dateTime = dateTime;
         }
-
-        public DbSet<TodoItem> TodoItems { get; set; }
-
-        public DbSet<TodoList> TodoLists { get; set; }
+        
         public DbSet<Product> Products { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeProduct> RecipeProducts { get; set; }
