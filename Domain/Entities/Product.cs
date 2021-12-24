@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Domain.Entities
 {
@@ -16,6 +17,7 @@ namespace Domain.Entities
         public bool IsOrganic { get; set; }
 
         public virtual ProductType ProductType { get; set; }
+        [JsonIgnore]
         public virtual ICollection<RecipeProduct> RecipeProducts { get; set; }
     }
 }

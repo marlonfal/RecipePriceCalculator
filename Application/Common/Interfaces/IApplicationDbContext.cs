@@ -13,6 +13,7 @@ namespace Application.Common.Interfaces
         DbSet<ProductType> ProductTypes { get; set; }
         DbSet<TodoList> TodoLists { get; set; }
         DbSet<TodoItem> TodoItems { get; set; }
+        DbSet<Parameter> Parameters { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

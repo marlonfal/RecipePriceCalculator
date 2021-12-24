@@ -43,7 +43,10 @@ namespace WebUI
 
             services.AddControllersWithViews(options =>
                 options.Filters.Add<ApiExceptionFilterAttribute>())
-                    .AddFluentValidation();
+                    .AddFluentValidation()
+                    .AddNewtonsoftJson(options =>
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
 
             services.AddRazorPages();
 

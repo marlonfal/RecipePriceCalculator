@@ -14,3 +14,6 @@
 /Domain.UnitTests/obj
 /Infrastructure/bin/Debug/netcoreapp3.1
 /Infrastructure/obj
+/Application/bin/Release/netcoreapp3.1
+/Domain/bin/Release/netcoreapp3.1
+/Infrastructure/bin/Release/netcoreapp3.1

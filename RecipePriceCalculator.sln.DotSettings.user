@@ -1,0 +1,17 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=E53DF518_002D39D4_002D4FF7_002DBD36_002DE7994501D08C_002Fd_003AClientApp_002Fd_003Asrc_002Fd_003Acomponents_002Ff_003AHome_002Ejs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=E53DF518_002D39D4_002D4FF7_002DBD36_002DE7994501D08C_002Fd_003AClientApp_002Fd_003Asrc_002Fd_003Acomponents_002Ff_003ALayout_002Ejs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=E53DF518_002D39D4_002D4FF7_002DBD36_002DE7994501D08C_002Fd_003AClientApp_002Fd_003Asrc_002Fd_003Acomponents_002Ff_003ANavMenu_002Ejs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=E53DF518_002D39D4_002D4FF7_002DBD36_002DE7994501D08C_002Fd_003AClientApp_002Fd_003Asrc_002Ff_003AApp_002Ejs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=E53DF518_002D39D4_002D4FF7_002DBD36_002DE7994501D08C_002Fd_003AClientApp_002Fd_003Asrc_002Ff_003Aindex_002Ejs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=E53DF518_002D39D4_002D4FF7_002DBD36_002DE7994501D08C_002Fd_003AClientApp_002Fd_003Asrc_002Ff_003AregisterServiceWorker_002Ejs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\Marlo\AppData\Local\Temp\JetBrains\ReSharperPlatformVs16\vAny_8f2e4dba\CoverageData\_RecipePriceCalculator.343227885\Snapshot\snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=619e006e_002De0d4_002D4189_002Db3f1_002D119b71d928e1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AdAccountTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::BBADADC2-41B4-4EC6-949C-249E860941DB::.NETCoreApp,Version=v3.1::Domain.UnitTests.ValueObjects.AdAccountTests&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;Project Location="C:\Test\RecipePriceCalculator\Application.UnitTests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Application.UnitTests&amp;gt;" /&gt;&#xD;
+    &lt;Project Location="C:\Test\RecipePriceCalculator\Application.IntegrationTests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Application.IntegrationTests&amp;gt;" /&gt;&#xD;
+  &lt;/Or&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

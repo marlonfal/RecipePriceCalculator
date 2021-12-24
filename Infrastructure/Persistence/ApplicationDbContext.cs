@@ -38,6 +38,7 @@ namespace Infrastructure.Persistence
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeProduct> RecipeProducts { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<Parameter> Parameters { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -194,24 +195,29 @@ namespace Infrastructure.Persistence
 
             builder.Entity<RecipeProduct>().HasData(
                 // Recipe 1
-                new RecipeProduct() { RecipeProductId = 1, ProductId = 1, RecipeId = 1, Quantity = 1 },
-                new RecipeProduct() { RecipeProductId = 2, ProductId = 2, RecipeId = 1, Quantity = 1 },
-                new RecipeProduct() { RecipeProductId = 3, ProductId = 7, RecipeId = 1, Quantity = 0.75m },
-                new RecipeProduct() { RecipeProductId = 4, ProductId = 9, RecipeId = 1, Quantity = 0.75m },
-                new RecipeProduct() { RecipeProductId = 5, ProductId = 10, RecipeId = 1, Quantity = 0.5m },
+                new RecipeProduct { RecipeProductId = 1, ProductId = 1, RecipeId = 1, Quantity = 1 },
+                new RecipeProduct { RecipeProductId = 2, ProductId = 2, RecipeId = 1, Quantity = 1 },
+                new RecipeProduct { RecipeProductId = 3, ProductId = 7, RecipeId = 1, Quantity = 0.75m },
+                new RecipeProduct { RecipeProductId = 4, ProductId = 9, RecipeId = 1, Quantity = 0.75m },
+                new RecipeProduct { RecipeProductId = 5, ProductId = 10, RecipeId = 1, Quantity = 0.5m },
                 // Recipe 2
-                new RecipeProduct() { RecipeProductId = 6, ProductId = 1, RecipeId = 2, Quantity = 1 },
-                new RecipeProduct() { RecipeProductId = 7, ProductId = 4, RecipeId = 2, Quantity = 4 },
-                new RecipeProduct() { RecipeProductId = 8, ProductId = 7, RecipeId = 2, Quantity = 0.5m },
-                new RecipeProduct() { RecipeProductId = 9, ProductId = 8, RecipeId = 2, Quantity = 0.5m },
+                new RecipeProduct { RecipeProductId = 6, ProductId = 1, RecipeId = 2, Quantity = 1 },
+                new RecipeProduct { RecipeProductId = 7, ProductId = 4, RecipeId = 2, Quantity = 4 },
+                new RecipeProduct { RecipeProductId = 8, ProductId = 7, RecipeId = 2, Quantity = 0.5m },
+                new RecipeProduct { RecipeProductId = 9, ProductId = 8, RecipeId = 2, Quantity = 0.5m },
                 // Recipe 3
-                new RecipeProduct() { RecipeProductId = 11, ProductId = 1, RecipeId = 3, Quantity = 1 },
-                new RecipeProduct() { RecipeProductId = 12, ProductId = 3, RecipeId = 3, Quantity = 4 },
-                new RecipeProduct() { RecipeProductId = 13, ProductId = 5, RecipeId = 3, Quantity = 4 },
-                new RecipeProduct() { RecipeProductId = 14, ProductId = 6, RecipeId = 3, Quantity = 8 },
-                new RecipeProduct() { RecipeProductId = 15, ProductId = 7, RecipeId = 3, Quantity = 0.33m },
-                new RecipeProduct() { RecipeProductId = 16, ProductId = 9, RecipeId = 3, Quantity = 1 },
-                new RecipeProduct() { RecipeProductId = 17, ProductId = 10, RecipeId = 3, Quantity = 0.75m }
+                new RecipeProduct { RecipeProductId = 11, ProductId = 1, RecipeId = 3, Quantity = 1 },
+                new RecipeProduct { RecipeProductId = 12, ProductId = 3, RecipeId = 3, Quantity = 4 },
+                new RecipeProduct { RecipeProductId = 13, ProductId = 5, RecipeId = 3, Quantity = 4 },
+                new RecipeProduct { RecipeProductId = 14, ProductId = 6, RecipeId = 3, Quantity = 8 },
+                new RecipeProduct { RecipeProductId = 15, ProductId = 7, RecipeId = 3, Quantity = 0.33m },
+                new RecipeProduct { RecipeProductId = 16, ProductId = 9, RecipeId = 3, Quantity = 1 },
+                new RecipeProduct { RecipeProductId = 17, ProductId = 10, RecipeId = 3, Quantity = 0.75m }
+            );
+
+            builder.Entity<Parameter>().HasData(
+                new Parameter {ParameterId = 1, Key = "SaleTax", Value = "8.6"},
+                new Parameter {ParameterId = 2, Key = "WellnessDiscount", Value = "5"}
             );
         }
 
@@ -219,11 +225,11 @@ namespace Infrastructure.Persistence
         {
             while (true)
             {
-                var domainEventEntity = ChangeTracker.Entries<IHasDomainEvent>()
+                var domainEventEntity = ChangeTracker
+                    .Entries<IHasDomainEvent>()
                     .Select(x => x.Entity.DomainEvents)
                     .SelectMany(x => x)
-                    .Where(domainEvent => !domainEvent.IsPublished)
-                    .FirstOrDefault();
+                    .FirstOrDefault(domainEvent => !domainEvent.IsPublished);
                 if (domainEventEntity == null) break;
 
                 domainEventEntity.IsPublished = true;

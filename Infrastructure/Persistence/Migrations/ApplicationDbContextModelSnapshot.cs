@@ -19,6 +19,38 @@ namespace Infrastructure.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Domain.Entities.Parameter", b =>
+                {
+                    b.Property<int>("ParameterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ParameterId");
+
+                    b.ToTable("Parameters");
+
+                    b.HasData(
+                        new
+                        {
+                            ParameterId = 1,
+                            Key = "SaleTax",
+                            Value = "8.6"
+                        },
+                        new
+                        {
+                            ParameterId = 2,
+                            Key = "WellnessDiscount",
+                            Value = "8.6"
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
                     b.Property<int>("ProductId")
